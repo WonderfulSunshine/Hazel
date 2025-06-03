@@ -8,6 +8,12 @@ workspace "Hazel"
     }
 
     outputdir ="%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+    IncludeDir = {} 
+    IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+
+    include "Hazel/vendor/GLFW"
+
 project "Hazel"
     location "Hazel"
     kind "SharedLib"
@@ -15,6 +21,9 @@ project "Hazel"
     buildoptions { "/utf-8" }  -- 构建选项，设置文件编码为 UTF-8
     targetdir ("bin/" .. outputdir .."/%{prj.name}")
     objdir ("bin-int/" .. outputdir .."/%{prj.name}")
+
+    pchheader "hzpch.h"
+    pchsource "Hazel/src/hzpch.cpp"
 
     files
     {
@@ -24,9 +33,18 @@ project "Hazel"
     }
 
     includedirs
-    {
-        "%{prj.name}/vendor/spdlog/include"
+    { 
+        "%{prj.name}/src",
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.GLFW}"
     }
+
+
+       links 
+             {
+                "GLFW",
+                "opengl32.lib"
+             }
 
     filter "system:windows"
         cppdialect "c++17"
@@ -52,14 +70,17 @@ project "Hazel"
      
     filter "configurations:Debug"
         defines "HZ_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
         
     filter "configurations:Release"
-        defines "HZ_Release"
+        defines "HZ_Release" 
+        buildoptions "/MD"
         optimize "On"
         
     filter "configurations:Dist"
         defines "HZ_Dist"
+        buildoptions "/MD"
         optimize "On"
 
 
@@ -85,6 +106,8 @@ project "SandBoxApp"
             }
              links 
              {
+                "GLFW",
+                "opengl32.lib",
                 "Hazel"
              }
             filter "system:windows"
@@ -98,14 +121,18 @@ project "SandBoxApp"
 
 
                 filter "configurations:Debug"
-                    defines "HZ_DEBUG"
+                    defines "HZ_DEBUG" 
+                    buildoptions "/MDd"
                     symbols "On"
                     
                 filter "configurations:Release"
                     defines "HZ_Release"
+                     buildoptions "/MD"
                     optimize "On"
                     
                 filter "configurations:Dist"
                     defines "HZ_Dist"
+                    buildoptions "/MD"
                     optimize "On"
 
+staticruntime	"Off"

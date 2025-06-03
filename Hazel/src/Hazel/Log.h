@@ -1,11 +1,15 @@
-#pragma once
-#include <memory>
+#pragma once 
 #include"Core.h"
 
 #include "spdlog/spdlog.h"
 
+
+  
 namespace Hazel {
 
+
+
+	
 	class HAZEL_API Log
 	{
 	public:
@@ -35,3 +39,4 @@ namespace Hazel {
 #define HZ_Client_Info(...)	    ::Hazel::Log::GetClinetLogger()->info(__VA_ARGS__)
 #define HZ_Client_TRACE(...)    ::Hazel::Log::GetClinetLogger()->trace(__VA_ARGS__)
 #define HZ_Client_FATAL(...)    ::Hazel::Log::GetClinetLogger()->fatal(__VA_ARGS__)
+ 
