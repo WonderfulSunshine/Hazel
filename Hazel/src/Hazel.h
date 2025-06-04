@@ -6,4 +6,6 @@
 #include "Hazel/EntryPoint.h"
 #include "Hazel/Layer.h"
 
+#include "Hazel/ImGui/ImGuiLayer.h"
+
 #include "spdlog/fmt/ostr.h"

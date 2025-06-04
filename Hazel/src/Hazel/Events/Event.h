@@ -24,7 +24,7 @@ namespace Hazel {
 		EventCategoryInput				= BIT(1),
 		EventCategoryKeyBoard			= BIT(2),
 		EventCategoryMouse				= BIT(3),
-		EventCategoryMouseButton			= BIT(4),
+		EventCategoryMouseButton		= BIT(4),
 
 	};
 
