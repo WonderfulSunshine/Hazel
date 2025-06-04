@@ -1,32 +1,33 @@
 ﻿#pragma once
  
-
 #include "Event.h"
 
-class MouseEvent
-{
+namespace Hazel
+{ 
+ 
 class MouseMoveEvent : public Event 
 	{
 	public:
 		MouseMoveEvent(float MousePosX, float MousePosY)
 			:m_MouseX(MousePosX), m_MouseY(MousePosY){}
 
-		inline float GetX() { return m_MouseX; };
-		inline float GetY() { return m_MouseY; };
+		inline float GetX() { return m_MouseX; }
+		inline float GetY() { return m_MouseY; }
 
 		std::string ToString() const override {
 			std::stringstream ss;
 			ss << "MouseMovedEvent: (" << m_MouseX << "," << m_MouseY << ")";
 			return ss.str();
 		}
-
-		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse)
+ 
+	 EVENT_CLASS_CATEGORY(Hazel::EventCategoryInput | Hazel::EventCategoryMouse)
 		EVENT_CLASS_TYPE(MouseMoved)
+		//EVENT_CLASS_TYPE(Hazel::)
 	private:
 		float m_MouseX, m_MouseY;
 	};
 
-	class MouseScrollEvent : public Event
+	class MouseScrollEvent : public Hazel::Event
 	{
 	public:
 		MouseScrollEvent(float MouseXOffset, float MouseYOffset)
@@ -50,7 +51,7 @@ class MouseMoveEvent : public Event
 	class MouseButtonEvent : public Event 
 	{
 	public:
-		inline int GetMouseButton() const { return m_MouseButton; };
+		  int GetMouseButton() const { return m_MouseButton; };
 
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryMouse | EventCategoryMouseButton)
 
@@ -64,8 +65,7 @@ class MouseMoveEvent : public Event
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
-			:m_MouseButton(button){}
+		MouseButtonPressedEvent(int button) :MouseButtonEvent(button){}
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -79,8 +79,7 @@ class MouseMoveEvent : public Event
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
-			:m_MouseButton(button) {}
+		MouseButtonReleasedEvent(int button) :MouseButtonEvent(button) {}
 
 		std::string ToString() const override {
 			std::stringstream ss;
@@ -91,3 +90,5 @@ class MouseMoveEvent : public Event
 		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
 };
+
+

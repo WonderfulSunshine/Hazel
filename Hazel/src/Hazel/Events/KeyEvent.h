@@ -1,35 +1,35 @@
-#pragma once
-#include "Event.h"
+#pragma once 
 
+#include "Event.h"
+#include <iostream>
 
 namespace Hazel {
 
 	class KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() { return m_KeyCode ;}
-
-		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
-	protected:
+		  int GetKeyCode() { return m_KeyCode ;}
+ 
+		EVENT_CLASS_CATEGORY(EventCategoryKeyBoard | EventCategoryInput)
+		
+	protected: 
 		KeyEvent(int keycode)
-			: m_KeyCode(keycode) {
-		}
+			: m_KeyCode(keycode) {}
 
 		int m_KeyCode;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
-	public:
-		KeyPressedEvent(int KeyCode, int RepeatCount)
-			:m_KeyCode(KeyCode), m_RepeatCount(RepeatCount) {
-		}
+	public: 
+		KeyPressedEvent(int keycode, int repeatCount) : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
 
-		inline int GetRepeatCount() { return m_RepeatCount; };
+		inline int GetRepeatCount() { return m_RepeatCount; } 
 
 		std::string ToString() const override
 		{
-		std:stringstream ss;
+
+			std::stringstream ss;
 			ss << "KeyPressedEvent: " << m_KeyCode << "(" << m_RepeatCount << " Repeats)";
 			return ss.str();
 		}
@@ -42,9 +42,7 @@ namespace Hazel {
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int KeyCode)
-			:m_KeyCode(KeyCode) {
-		}
+		KeyReleasedEvent(int KeyCode) :KeyEvent(KeyCode) { 	}
 
 		std::string ToString() const override
 		{ 

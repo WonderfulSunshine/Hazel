@@ -21,10 +21,10 @@ namespace Hazel {
 	{
 		None = 0, 
 		EventCategoryApplication		= BIT(0),
-		EventCatgoryInput				= BIT(1),
-		EventCatgoryKeyBoard			= BIT(2),
-		EventCatgoryMouse				= BIT(3),
-		EventCatgoryMouseButton			= BIT(4),
+		EventCategoryInput				= BIT(1),
+		EventCategoryKeyBoard			= BIT(2),
+		EventCategoryMouse				= BIT(3),
+		EventCategoryMouseButton			= BIT(4),
 
 	};
 
@@ -67,7 +67,7 @@ namespace Hazel {
 		template<typename T>
 		bool DispatchEvent(EventFunc<T> Func) {
 
-			if (m_Event.getEventType() == T::GetStaticType()) {
+			if (m_Event.GetEventType() == T::GetStaticType()) {
 
 				m_Event.m_handled = Func(*(T*)&m_Event);
 				return true;
