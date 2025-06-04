@@ -4,6 +4,9 @@
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
 
+
+#include "Hazel/LayerStack.h"
+
 namespace Hazel
 {
     class HAZEL_API Application
@@ -14,12 +17,18 @@ namespace Hazel
         void Run();
         bool OnWindowClose(WindowCloseEvent& e);
 
-        void  OnEvent(Event& e )  ; 
+        void PushLayer(Layer* layer);
+
+        void PushOverlay(Layer* layer);
+
+        void OnEvent(Event& e);
+
     private:
-        std::unique_ptr<Window> m_Window ;
-        bool m_Running = true;  
+        std::unique_ptr<Window> m_Window;
+        bool m_Running = true;
+        LayerStack m_LayerStack;
     };
-    
+
 
     Application* CreateApplication();
 }
