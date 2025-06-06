@@ -41,6 +41,8 @@ namespace Hazel
 		virtual bool IsVSync() const = 0;
         // in Windows Parent Define Func
 
+        virtual void * GetNativeWindow() const = 0 ; 
+
         static Window* Create(const Windowprops& props = Windowprops());
     };
 }
