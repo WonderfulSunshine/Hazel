@@ -3,10 +3,7 @@
 namespace Hazel{
 	
 class WindowResizeEvent : public Event
-{
-
-
-	
+{ 
 public: 
 	
 	WindowResizeEvent(int Width, int Height)
