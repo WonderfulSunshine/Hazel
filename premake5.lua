@@ -13,13 +13,15 @@ workspace "Hazel"
     IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
     IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
     IncludeDir["ImGui"] = "Hazel/vendor/imgui"
-
+    IncludeDir["glm"] = "Hazel/vendor/glm"
+    
     include "Hazel/vendor/GLFW"
     include "Hazel/vendor/Glad"
     include "Hazel/vendor/imgui"
 
 project "Hazel"
     location "Hazel"
+    
     kind "SharedLib"
     language "C++"
     buildoptions { "/utf-8" }  -- 构建选项，设置文件编码为 UTF-8
@@ -33,7 +35,10 @@ project "Hazel"
     {
 
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        -- 可以不用包含hpp文件
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
     }
 
     includedirs
@@ -42,7 +47,8 @@ project "Hazel"
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
          "%{IncludeDir.Glad}",
-         "%{IncludeDir.ImGui}"
+         "%{IncludeDir.ImGui}",
+          "%{IncludeDir.glm}"-- 包含目录
     }
 
 
@@ -111,7 +117,8 @@ project "SandBoxApp"
             includedirs
             {
                 "Hazel/vendor/spdlog/include",
-                "Hazel/src"
+                "Hazel/src",
+                "%{IncludeDir.glm}"
             }
              links 
              {
